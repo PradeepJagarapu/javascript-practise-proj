@@ -10,9 +10,34 @@
             border: solid black;
         }
     </style>
+    <script>
+        //dummy obj data to handle search functionality
+        const obj1={
+            charId:"Nar001",
+            charName:"Naruto Uzumaki",
+            animeName:"Naruto",
+            powerSys:"Chakra"
+        }
+
+        const obj2={
+            charId:"OP001",
+            charName:"Monkey D Luffy",
+            animeName:"Onepiece",
+            powerSys:"Haki"
+        }
+    </script>
+    <script>
+        const charList=[obj1,obj2];
+        function doSearch(){
+            let searchCharId=document.getElementById("charId").value;
+            for(i=0;i<charList.length;i++){
+                charList[0].charId.includes(searchCharId);
+            }
+        }
+    </script>
 </head>
 <body>
-    <table>
+    <table width="100%">
         <tr id="test">
             <td>Char Id:</td>
             <td><input type="text" id="charId" name=""></td>
@@ -29,31 +54,44 @@
             <td><button>Search</button></td>
          </tr>
     </table>
-    <table class="main" id="table" border="1">
-        <tr>
-            <th>CharId</th>
-            <th>Character Name</th>
-            <th>Anime Name</th>
-            <th>Power System</th>
-        </tr>
-        <tr>
-            <td>NAR001</td>
-            <td>Naruto Uzumaki</td>
-            <td>Naruto</td>
-            <td>Chakra</td>
-        </tr>
-        <tr>
-            <td>NAR002</td>
-            <td>Sasuke Uchiha</td>
-            <td>Naruto</td>
-            <td>Chakra</td>
-        </tr>
-        <tr>
-            <td>OP001</td>
-            <td>Monkey.D.Luffy</td>
-            <td>Onepiece</td>
-            <td>Haki</td>
-        </tr>
-    </table>
+    <div id="tableDiv"></div>
 </body>
+<script>
+    var tableDiv=document.getElementById("tableDiv");
+    var charTable=document.createElement("table");
+    var tableTr=document.createElement("tr");
+    
+    // var th1=document.createElement("th")
+    // th1.textContent="Char Id";
+    // tableTr.appendChild(th1);
+    // charTable.appendChild(tableTr)
+    // tableDiv.appendChild(charTable);
+
+    //loop for table headings
+    const tblHeadings=["Char Id","Character Name","Anime Name","Power System"];
+    
+    tblHeadings.forEach(function(text){
+        var th=document.createElement("th");
+        th.textContent=text;
+        tableTr.appendChild(th);
+    })
+
+    charTable.appendChild(tableTr)
+    
+    for(i=0;i<charList.length;i++){
+        var tableTr=document.createElement("tr");
+        var tempObj=charList[i];
+        const tempObjKeys=Object.keys(tempObj);
+        for(j=0;j<tempObjKeys.length;j++){
+            var td=document.createElement("td");
+            td.textContent=tempObj[tempObjKeys[j]];
+            tableTr.appendChild(td);
+        }
+        charTable.appendChild(tableTr);
+    }
+    charTable.style.border = "1px solid black";
+    charTable.style.width = "100%";
+    charTable.style.textAlign = "center";
+    tableDiv.appendChild(charTable);
+</script>
 </html>
