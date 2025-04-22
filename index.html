@@ -48,15 +48,17 @@
             var empProperties=["empId","firstName","lastName","designation","empAge","phno","email"];
             var empList=[];
             for(i=0;i<empData.length;i++){
-                var tempEmpObj={};
-                tempEmpObj.empId=empData[i][0];
-                tempEmpObj.firstName=empData[i][1];
-                tempEmpObj.lastName=empData[i][2];
-                tempEmpObj.designation=empData[i][3];
-                tempEmpObj.empAge=empData[i][4];
-                tempEmpObj.phno=empData[i][5];
-                tempEmpObj.email=empData[i][6];
-                empList[i]=tempEmpObj;
+                if(empData[i].length == empProperties.length){
+                    var tempEmpObj={};
+                    tempEmpObj.empId=empData[i][0];
+                    tempEmpObj.firstName=empData[i][1];
+                    tempEmpObj.lastName=empData[i][2];
+                    tempEmpObj.designation=empData[i][3];
+                    tempEmpObj.empAge=empData[i][4];
+                    tempEmpObj.phno=empData[i][5];
+                    tempEmpObj.email=empData[i][6];
+                    empList.push(tempEmpObj);
+                }
             }
 
             //var empList=[emp1,emp2,"SATYA"];
@@ -75,12 +77,92 @@
 
         }
         
+        function empIdSearch(){
+            var empIdSearchTxt= document.getElementById("empId").value;
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.empId).includes(empIdSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
+        function firstNameSearch(){
+            var firstNameSearchTxt= document.getElementById("empFirstName").value;
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.firstName).includes(firstNameSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
+        function lastNameSearch(){
+            var lastNameSearchTxt= document.getElementById("empLastName").value;
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.lastName).includes(lastNameSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
         function designationSearch(){
             var designationSearchTxt= document.getElementById("empDesig").value;
             var filteredEmpData=[];
 
             empList.forEach(function(emp){
                 if((emp.designation).includes(designationSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
+        function empAgeSearch(){
+            var empAgeSearchTxt= document.getElementById("empAge").value;
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.empAge).includes(empAgeSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
+        function phnoSearch(){
+            var phnoSearchTxt= document.getElementById("empPhNo").value;
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.phno).includes(phnoSearchTxt)){
+                    filteredEmpData.push(emp);
+                }
+            })
+
+            empRecordsDisplay(filteredEmpData);
+        }
+
+        function emailSearch(){
+            var emailSearchTxt= document.getElementById("empEmail").value;
+            console.log("Searching for email that includes:", emailSearchTxt);
+
+            var filteredEmpData=[];
+
+            empList.forEach(function(emp){
+                if((emp.email).includes(emailSearchTxt)){
                     filteredEmpData.push(emp);
                 }
             })
@@ -139,8 +221,8 @@
         <tr>
             <td></td>
             <td></td>
-            <td></td>
-            <td><button onclick="designationSearch()">Search</button></td>
+            <td><button onclick="clearAllFields()">Clear</button></td>
+            <td><button onclick="emailSearch()">Search</button></td>
         </tr>
     </table>
     
@@ -244,7 +326,18 @@
             tag.style.borderCollapse="collapse";
         })
     }
-
+    //on load of the screen ,emp records will be rendered
     empRecordsDisplay(empList);
+
+    //on clear ,fields should be empty and render all records again
+    function clearAllFields(){
+        document.querySelectorAll("table input").forEach(function(input){
+            input.value="";
+        })
+
+        empRecordsDisplay(empList);
+
+    }
+
 </script>
 </html>
